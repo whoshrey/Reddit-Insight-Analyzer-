@@ -1,8 +1,12 @@
+
 streamlit
-praw
-transformers
-wordcloud
-matplotlib
 nltk 
 spacy 
 seaborn
+python-dotenv
+praw
+matplotlib
+wordcloud
+transformers
+torch
+requests
