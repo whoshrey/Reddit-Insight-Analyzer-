@@ -3,7 +3,6 @@ praw
 matplotlib
 wordcloud
 transformers==4.39.3
-tokenizers==0.18.1
 torch==2.7.1
 python-dotenv
 nltk 
