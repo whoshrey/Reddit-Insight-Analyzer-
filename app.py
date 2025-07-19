@@ -18,17 +18,19 @@ reddit = praw.Reddit(
 # Load models
 from transformers import pipeline
 
+from transformers import pipeline
+
 abuse_detector = pipeline(
     "text-classification",
     model="unitary/toxic-bert",
-    device=-1  # force CPU
+    device=-1  # ← forces CPU
 )
 
 emotion_detector = pipeline(
     "text-classification",
     model="j-hartmann/emotion-english-distilroberta-base",
     return_all_scores=True,
-    device=-1  # force CPU
+    device=-1  # ← forces CPU
 )
 
 
