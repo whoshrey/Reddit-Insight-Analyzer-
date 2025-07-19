@@ -5,15 +5,22 @@ from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
 import streamlit as st
+
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # loads .env variables into environment
+
+client_id = os.getenv("REDDIT_CLIENT_ID")
+client_secret = os.getenv("REDDIT_CLIENT_SECRET")
+
 import praw
 
-client_id = st.secrets["REDDIT_CLIENT_ID"]
-client_secret = st.secrets["REDDIT_CLIENT_SECRET"]
-# Initialize Reddit instance
 reddit = praw.Reddit(
     client_id=client_id,
     client_secret=client_secret,
-    user_agent="reddit-insight-analyzer"
+    user_agent="reddit-analyzer-app"
 )
 # Load models
 from transformers import pipeline
