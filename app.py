@@ -4,26 +4,33 @@ from transformers import pipeline
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
-# Reddit API credentials
-from dotenv import load_dotenv
-import os
-
-load_dotenv()  # Load variables from .env
-
-# Now use them:
-client_id = os.getenv("REDDIT_CLIENT_ID")
-client_secret = os.getenv("REDDIT_CLIENT_SECRET")
+import streamlit as st
 import praw
 
+client_id = st.secrets["REDDIT_CLIENT_ID"]
+client_secret = st.secrets["REDDIT_CLIENT_SECRET"]
+# Initialize Reddit instance
 reddit = praw.Reddit(
     client_id=client_id,
     client_secret=client_secret,
-    user_agent="reddit-analyzer-app"
+    user_agent="reddit-insight-analyzer"
+)
+# Load models
+from transformers import pipeline
+
+abuse_detector = pipeline(
+    "text-classification",
+    model="unitary/toxic-bert",
+    device=-1  # force CPU
 )
 
-# Load models
-abuse_detector = pipeline("text-classification", model="unitary/toxic-bert")
-emotion_detector = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=True)
+emotion_detector = pipeline(
+    "text-classification",
+    model="j-hartmann/emotion-english-distilroberta-base",
+    return_all_scores=True,
+    device=-1  # force CPU
+)
+
 
 # Streamlit UI
 st.title("🔍 Reddit Insight Analyzer")
